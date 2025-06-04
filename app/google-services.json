@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "146381527028",
+    "project_id": "morsa-chat-454204",
+    "storage_bucket": "morsa-chat-454204.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146381527028:android:30d7e2e29f583f18b64ba1",
+        "android_client_info": {
+          "package_name": "com.ivanescobar.morsachat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkEOI_RNqBP7TgjtbOeVaKhD68PGpI5gM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
