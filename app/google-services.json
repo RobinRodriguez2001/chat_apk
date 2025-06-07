@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "802511932859",
-    "project_id": "chatmensajes-7fa75",
-    "storage_bucket": "chatmensajes-7fa75.firebasestorage.app"
+    "project_number": "124113982839",
+    "project_id": "flybox-chat",
+    "storage_bucket": "flybox-chat.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:802511932859:android:5191a986cc223b0564889e",
+        "mobilesdk_app_id": "1:124113982839:android:dc3a1344924e3554b13d72",
         "android_client_info": {
           "package_name": "com.ivanescobar.morsachat"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBXLKm2GiCSZfBNKhfrZCgIzLW9xvUPjPs"
+          "current_key": "AIzaSyAKDLZ-7PApkkbDfnzxV2k0PSUaJ7GHcDg"
         }
       ],
       "services": {
