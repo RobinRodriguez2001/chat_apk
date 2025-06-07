@@ -23,8 +23,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.ivanescobar.morsachat.adapters.ChatAdapter;
-import com.ivanescobar.morsachat.models.Message;
+import com.ivanescobar.morsachat.adapters.ChatAdapter; // Asegúrate de que esta importación sea correcta
+import com.ivanescobar.morsachat.models.Message; // Asegúrate de que esta importación sea correcta
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,9 +41,10 @@ public class ChatActivity extends AppCompatActivity {
     private ChatAdapter mAdapter;
     private List<Message> mMessages;
 
-    private String mUserId; // ID del usuario con el que se está chateando
+    private String mUserId; // ID del usuario con el que se está chateando (receiverId)
     private String mUsername; // Nombre del usuario con el que se está chateando
     private FirebaseFirestore mFirestore;
+    private String currentUserId; // Este es el ID del usuario actual (senderId)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +67,27 @@ public class ChatActivity extends AppCompatActivity {
         // Inicializar Firestore
         mFirestore = FirebaseFirestore.getInstance();
 
+        // Obtener el ID del usuario actual DESPUÉS de que FirebaseAuth esté inicializado
+        // Esto es crucial para que el adaptador identifique correctamente los mensajes enviados
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            Log.d("CHAT_DEBUG", "Current User ID: " + currentUserId);
+        } else {
+            // Manejar el caso en que el usuario actual no esté logueado (ej. redirigir a login)
+            Log.e("CHAT_DEBUG", "Error: Usuario actual es nulo. ¿Usuario no logueado?");
+            Toast.makeText(this, "No has iniciado sesión.", Toast.LENGTH_SHORT).show();
+            finish();
+            return; // Detener la ejecución adicional
+        }
+
         // Configurar RecyclerView
         mRecyclerView = findViewById(R.id.recyclerViewChat);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // Usar LayoutManager para mantener la posición al agregar nuevos elementos
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
         mMessages = new ArrayList<>();
-        mAdapter = new ChatAdapter(mMessages);
+        // Pasar currentUserId al adaptador aquí
+        mAdapter = new ChatAdapter(mMessages, currentUserId);
         mRecyclerView.setAdapter(mAdapter);
 
         // Configurar EditText y Button
@@ -100,17 +117,25 @@ public class ChatActivity extends AppCompatActivity {
         // Animación personalizada al regresar (opcional)
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
+
     private void loadMessages() {
-        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Log.d("CHAT_DEBUG", "Sender ID: " + currentUserId);
-        Log.d("CHAT_DEBUG", "Receiver ID: " + mUserId);
+        // Asegurarse de que currentUserId esté disponible antes de la consulta
+        if (currentUserId == null) {
+            Log.e("CHAT_DEBUG", "Error: currentUserId es nulo en loadMessages.");
+            return;
+        }
+
+        Log.d("CHAT_DEBUG", "Sender ID (Usuario Actual): " + currentUserId);
+        Log.d("CHAT_DEBUG", "Receiver ID (Chateando Con): " + mUserId);
 
         // Consultar los mensajes entre los dos usuarios
         mFirestore.collection("Messages")
-                .whereIn("senderId", Arrays.asList(currentUserId, mUserId)) // Mensajes enviados por el remitente o el destinatario
-                .whereIn("receiverId", Arrays.asList(currentUserId, mUserId)) // Mensajes recibidos por el remitente o el destinatario
+                // Filtra mensajes donde el senderId es el usuario actual O el usuario con el que se chatea
+                .whereIn("senderId", Arrays.asList(currentUserId, mUserId))
+                // Filtra mensajes donde el receiverId es el usuario actual O el usuario con el que se chatea
+                .whereIn("receiverId", Arrays.asList(currentUserId, mUserId))
                 .orderBy("timestamp", Query.Direction.ASCENDING)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() { // Usar addSnapshotListener en lugar de get
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(QuerySnapshot queryDocumentSnapshots, FirebaseFirestoreException e) {
                         if (e != null) {
@@ -121,11 +146,15 @@ public class ChatActivity extends AppCompatActivity {
 
                         mMessages.clear();
                         for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            // Convertir el documento a un objeto Message
                             Message message = document.toObject(Message.class);
                             mMessages.add(message);
                         }
                         mAdapter.notifyDataSetChanged();
-                        mRecyclerView.scrollToPosition(mMessages.size() - 1); // Desplazar al último mensaje
+                        // Desplazarse al último mensaje si hay alguno
+                        if (!mMessages.isEmpty()) {
+                            mRecyclerView.scrollToPosition(mMessages.size() - 1);
+                        }
                     }
                 });
     }
@@ -135,13 +164,13 @@ public class ChatActivity extends AppCompatActivity {
         if (!messageText.isEmpty()) {
             // Crear un nuevo mensaje
             Map<String, Object> message = new HashMap<>();
-            message.put("senderId", FirebaseAuth.getInstance().getCurrentUser().getUid());
+            message.put("senderId", currentUserId); // Usar el currentUserId ya obtenido
             message.put("receiverId", mUserId);
             message.put("message", messageText);
-            message.put("timestamp", new Date().getTime());
+            message.put("timestamp", new Date().getTime()); // Usar timestamp para ordenar
 
             Log.d("CHAT_DEBUG", "Enviando mensaje: " + messageText);
-            Log.d("CHAT_DEBUG", "Sender ID: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
+            Log.d("CHAT_DEBUG", "Sender ID: " + currentUserId);
             Log.d("CHAT_DEBUG", "Receiver ID: " + mUserId);
 
             // Guardar el mensaje en Firestore
@@ -152,7 +181,8 @@ public class ChatActivity extends AppCompatActivity {
                         public void onSuccess(DocumentReference documentReference) {
                             Log.d("CHAT_DEBUG", "Mensaje enviado con ID: " + documentReference.getId());
                             mEditTextMessage.setText(""); // Limpiar el EditText
-                            loadMessages(); // Recargar mensajes
+                            // NO ES NECESARIO llamar a loadMessages() aquí.
+                            // El addSnapshotListener en loadMessages() se encargará de actualizar el RecyclerView automáticamente.
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

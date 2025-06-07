@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="end"
+    android:paddingEnd="8dp"
+    android:paddingStart="60dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="8dp"> <TextView
+    android:id="@+id/textViewMessage"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_sent_message" android:padding="8dp"
+    android:textColor="@android:color/white"
+    android:textSize="16sp"
+    android:text="Este es un mensaje enviado." />
+
+</LinearLayout>
