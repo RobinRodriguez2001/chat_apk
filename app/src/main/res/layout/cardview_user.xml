@@ -19,7 +19,7 @@
             android:id="@+id/circleImageChat"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/cover_image"
+            android:src="@drawable/imglogo"
             app:civ_border_color="@color/colorGrayLight"
             app:civ_border_width="1dp" />
 

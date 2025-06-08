@@ -12,13 +12,13 @@
 
     <item
         android:id="@+id/itemChats"
-        android:icon="@drawable/ic_chat"
+        android:icon="@drawable/ic_chatw"
         android:title="Chats" />
 
 
     <item
         android:id="@+id/itemProfile"
-        android:icon="@drawable/ic_perfil"
+        android:icon="@drawable/ic_profilew"
         android:title="Perfil" />
 
 </menu>

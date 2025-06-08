@@ -28,12 +28,12 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/blue" />
+                android:background="@color/sky_blue_deep" />
 
             <ImageView
                 android:layout_width="440dp"
                 android:layout_height="300dp"
-                android:src="@drawable/morsa_sin_fondo_horizontal"
+                android:src="@drawable/tom_and_jerry"
                 android:layout_gravity="center|top"
                 android:layout_marginTop="5dp"/>
 
@@ -51,7 +51,7 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_email"
+                android:src="@drawable/ic_email2"
                 android:layout_marginRight="5dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -82,7 +82,7 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_password2"
+                android:src="@drawable/ic_security"
                 android:layout_marginRight="5dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -110,7 +110,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginLeft="70dp"
             android:layout_marginRight="50dp"
-            android:backgroundTint="@color/blue"/>
+            android:backgroundTint="@color/sky_blue_deep"/>
 
 
     </LinearLayout>

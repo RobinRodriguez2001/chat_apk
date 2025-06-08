@@ -18,7 +18,7 @@
             android:id="@+id/circleImageChat"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:src="@drawable/cover_image" />
+            android:src="@drawable/imglogo" />
 
         <LinearLayout
             android:layout_width="wrap_content"

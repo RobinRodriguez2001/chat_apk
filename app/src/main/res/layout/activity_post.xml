@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:orientation="vertical"
-            android:background="@color/blue">
+            android:background="@color/sky_blue_deep">
 
             <TextView
                 android:layout_width="match_parent"
@@ -149,7 +149,7 @@
         android:id="@+id/btnPost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue"
+        android:backgroundTint="@color/sky_blue_deep"
         android:layout_gravity="bottom"
         android:text="PUBLICAR"
         android:layout_marginBottom="40dp"

@@ -6,4 +6,19 @@
     <color name="blue_dark">#10427E</color>
     <color name="purple">#272037</color>
     <color name="colorGrayLight">#A4A4A4</color>
+
+    <color name="sky_blue">#87CEEB</color>          <!-- cielo claro -->
+    <color name="sky_blue_light">#B3E5FC</color>    <!-- azul más suave -->
+    <color name="sky_blue_deep">#0288D1</color>     <!-- azul intenso del cielo profundo -->
+    <color name="cloud_white">#F5F5F5</color>       <!-- blanco nube -->
+    <color name="sunset_orange">#FFA07A</color>     <!-- naranja suave de atardecer -->
+    <color name="twilight_purple">#6A5ACD</color>   <!-- púrpura al anochecer -->
+    <color name="morning_yellow">#FFF9C4</color>    <!-- luz suave del amanecer -->
+    <color name="evening_pink">#FFB6C1</color>      <!-- rosado de tarde -->
+    <color name="storm_gray">#90A4AE</color>        <!-- gris de cielo nublado -->
+    <color name="night_blue">#0D47A1</color>        <!-- azul profundo de noche -->
+
+    <!-- Para texto e interfaces -->
+    <color name="text_on_sky">#0A0A0A</color>
+    <color name="text_secondary_on_sky">#555555</color>
 </resources>

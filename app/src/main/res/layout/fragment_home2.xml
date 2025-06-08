@@ -36,7 +36,7 @@
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="45dp"
         android:layout_marginRight="20dp"
-        android:backgroundTint="@color/blue_dark"
+        android:backgroundTint="@color/sky_blue_deep"
         app:tint="@color/white"/>
 
 

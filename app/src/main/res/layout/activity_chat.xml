@@ -36,7 +36,7 @@
             android:layout_marginLeft="10dp"
             android:text="Enviar"
             android:textStyle="bold"
-            android:backgroundTint="@color/blue_dark"
+            android:backgroundTint="@color/black"
             android:textColor="@color/white"/>
 
 

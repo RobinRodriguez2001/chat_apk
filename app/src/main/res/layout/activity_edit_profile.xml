@@ -17,7 +17,7 @@
         android:id="@+id/imageViewCover"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@drawable/cover_image"
+        android:src="@drawable/fondotres"
         android:scaleType="centerCrop"
         app:layout_collapseMode="parallax"
         android:transitionName="@string/transitionname_picture"
@@ -29,8 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:src="@drawable/ic_person3"
-        app:civ_circle_background_color="@color/colorGrayLight"
-        app:civ_border_color="@color/white"
+        app:civ_circle_background_color="@color/sky_blue_deep"
+        app:civ_border_color="@color/cardview_dark_background"
         app:civ_border_width="2dp"
         android:layout_marginTop="130dp"/>
 
@@ -112,7 +112,7 @@
         android:id="@+id/btnEditProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue"
+        android:backgroundTint="@color/sky_blue_deep"
         android:text="ACTUALIZAR"
         android:textColor="@color/white"
         android:layout_gravity="bottom"
